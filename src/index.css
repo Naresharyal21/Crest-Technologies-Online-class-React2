@@ -1,0 +1,210 @@
+* {
+  padding: 0;
+  margin: 10px;
+}
+
+.todo-wrapper {
+  width: 1000px;
+  margin: auto;
+  padding: 25px 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.mr-15 {
+  margin-right: 15px;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.text-red {
+  color: rgb(233, 54, 54);
+}
+
+.text-green {
+  color: rgb(43, 118, 70);
+}
+
+.text-blue {
+  color: rgb(47, 47, 212);
+}
+
+.py-15 {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-left: auto;
+}
+
+.py-10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+ 
+}
+
+.input {
+  width: 250px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.select {
+  width: 100px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.mr-10{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* .table {
+} */
+
+.border-1 {
+  border-top: 1px solid #ccc;
+}
+
+.button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(56, 56, 225);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+.mr-11{
+  margin-top: 11px;
+ 
+}
+/* //mytodo// */
+.bxhw{
+  border: 1px solid black;
+ padding:20px;
+  width: 50%;
+  height:40%;
+  margin-left: 300px;
+  margin-top: 100px;
+  border-radius: 10px;
+  
+}
+.sw{
+  width: 90%;
+height: 30px;
+padding-left: 5px;
+
+}
+.ercolor{
+  margin-top: 8px;
+  
+  color: red;
+}
+.input-error{
+  border: 1px solid red;
+}
+.btn-10{
+  width: 60px;
+}
+.searchicon {
+  position: relative;
+  width: 300px;
+}
+.searchicon .inner {
+  position: absolute;
+  left: 1px;
+  top: 50%;
+  transform: translateY(-66%);
+  color: #9aa0a6;
+  font-size: 20px;
+}
+.searchicon input.input {
+  padding: 10px 10px 10px 40px;
+  width: 100%;
+  border: 1px solid #dfe1e5;
+  border-radius: 24px;
+  
+  font-size: 16px;
+  outline: none;
+  
+}
+.width{
+  margin-top: 35px;
+  width:140px;
+  height:40px;
+  border-radius: 10px;
+  padding-left: 5px;
+  
+  
+}
+
+
+.sortbtns{
+  transform: translateY(35%);
+  border: none;
+  background-color:white;
+  cursor: pointer;
+}
+.sortbtns:hover{
+  background-color: rgb(246, 252, 222);
+}
+.table{
+  margin-top: -40px;
+}
+/* .firstbtn{
+  transform: translateX(-60px);
+} */
+.editmain{
+  display: flex;
+  flex-direction: column;
+  margin-left: 40%;
+  
+}
+.sww{
+  width: 50%;
+  height: 30px;
+}
+.edittodo{
+ margin-left: 50%; 
+}
+
+.clrbtn{
+  margin-bottom: 60px;
+
+  
+  
+}
+.content{
+  text-align: center;
+  color: blueviolet;
+  font-size: 25px;
+
+}
+.header{
+  margin-left: 295px;
+  transform: translatey(90px);
+}
