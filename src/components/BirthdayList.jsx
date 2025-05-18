@@ -3,6 +3,54 @@ import { CiSearch } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import { FaUsersViewfinder } from "react-icons/fa6";
 
+
+const CountdownCell = ({ dob }) => {
+    const [timeLeft, setTimeLeft] = useState(getTimeLeft(dob));
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTimeLeft(getTimeLeft(dob));
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [dob]);
+
+    return <span>{timeLeft}</span>;
+};
+
+const getTimeLeft = (dob) => {
+    const now = new Date();
+    const birthDate = new Date(dob);
+
+
+    if (
+        now.getDate() === birthDate.getDate() &&
+        now.getMonth() === birthDate.getMonth()
+    ) {
+        return "HAPPY BIRTHDAY!";
+    }
+
+    let nextBirthday = new Date(
+        now.getFullYear(),
+        birthDate.getMonth(),
+        birthDate.getDate()
+    );
+
+    if (nextBirthday.getTime() < now.getTime()) {
+        nextBirthday.setFullYear(now.getFullYear() + 1);
+    }
+
+    const distance = nextBirthday.getTime() - now.getTime();
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+};
+
+
 const BirthdayList = (props) => {
     const { birthdays = [], setBirthdays, setSection, setSelectedBirthday } = props;
 
@@ -18,47 +66,30 @@ const BirthdayList = (props) => {
         setBirthdays(updatedList);
         localStorage.setItem("dob", JSON.stringify(updatedList));
     };
-    const handleClear = () => {
 
-        localStorage.removeItem('dob');
-        setBirthdays([])
+    const handleClear = () => {
+        localStorage.removeItem("dob");
+        setBirthdays([]);
     };
 
     const handleSearch = (e) => {
         const value = e.target.value;
         setSearch(value);
 
-        const filtered = birthdays.filter(b =>
+        const filtered = birthdays.filter((b) =>
             b.fullname.toLowerCase().includes(value.toLowerCase())
         );
         setFilteredBirthdays(filtered);
     };
-    const getRemainingDays = (dob) => {
-        const today = new Date();
-        const birthDate = new Date(dob);
-
-        // Set next birthday to the same MM-DD in the current year
-        let nextBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
-
-        // If birthday has already occurred this year, move to next year
-        if (nextBirthday < today) {
-            nextBirthday.setFullYear(today.getFullYear() + 1);
-        }
-
-        const oneDay = 24 * 60 * 60 * 1000;
-        const diffDays = Math.ceil((nextBirthday - today) / oneDay);
-
-        return diffDays;
-    };
-
-
 
     return (
         <div className="w-100">
             <div className="flex w-100 justify-between align-items-center">
                 <div className="flex py-15">
                     <div className="flex py-15 searchicon">
-                        <div className="inner"><CiSearch /></div>
+                        <div className="inner">
+                            <CiSearch />
+                        </div>
                         <input
                             className="input mr-10"
                             type="text"
@@ -76,16 +107,17 @@ const BirthdayList = (props) => {
                     </button>
                 </div>
             </div>
-            <button className="button mr-10 clrbtn  " onClick={handleClear}>Clear All Records</button>
+            <button className="button mr-10 clrbtn" onClick={handleClear}>
+                Clear All Records
+            </button>
 
             <table cellPadding={0} cellSpacing={0} className="w-100 table">
                 <thead>
                     <tr>
-
                         <th style={{ width: "50px", textAlign: "left" }}>S.N.</th>
                         <th style={{ width: "150px", textAlign: "left" }}>Full Name</th>
                         <th style={{ width: "200px", textAlign: "left" }}>Date of Birth</th>
-                        <th style={{ width: "200px", textAlign: "left" }}> Remanning Days</th>
+                        <th style={{ width: "200px", textAlign: "left" }}>Remaining Days</th>
                         <th style={{ width: "150px", textAlign: "left" }}>Person Image</th>
                         <th style={{ width: "100px", textAlign: "left" }}>Actions</th>
                     </tr>
@@ -97,7 +129,9 @@ const BirthdayList = (props) => {
                                 <td className="border-1 py-10">{index + 1}</td>
                                 <td className="border-1 py-10">{birthday.fullname}</td>
                                 <td className="border-1 py-10">{birthday.dob}</td>
-                                <td className="border-1 py-10">{getRemainingDays(birthday.dob)}</td>
+                                <td className="border-1 py-10">
+                                    <CountdownCell dob={birthday.dob} />
+                                </td>
                                 <td className="border-1 py-10">
                                     {birthday.fimg ? (
                                         <img
@@ -129,7 +163,6 @@ const BirthdayList = (props) => {
                                             setSelectedBirthday(birthday);
                                             setSection("viewMyBirthDay");
                                         }}
-
                                     >
                                         <FaUsersViewfinder />
                                     </button>
@@ -138,7 +171,7 @@ const BirthdayList = (props) => {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="5" className="text-center py-10">
+                            <td colSpan="7" className="text-center py-10">
                                 No birthdays found.
                             </td>
                         </tr>
